@@ -1,7 +1,6 @@
 # chat-example with user typing event
 
-
-![typing](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
+<img src="https://github.com/msroot/chat-example/blob/master/typing.gif?raw=true" width="450"/>
 
 - ```git clone https://github.com/msroot/chat-example```
 - ```cd chat-example```
