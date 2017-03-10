@@ -20,7 +20,7 @@
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
 		
-		<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" height="200" width="200" id="typing">
+		<img src="https://github.com/msroot/chat-example/blob/master/typing.gif?raw=true" height="200" width="200" id="typing">
 		
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -30,6 +30,7 @@
 				$("#typing").hide()
 				
         var socket = io();
+				var timeout = null;
 				
         $('form').submit(function(){
           socket.emit('chat message', $('#m').val());
@@ -38,12 +39,18 @@
         });
 				
         $('form').on('keyup', function(){
-          socket.emit('start_typing', 'User id');
+          socket.emit('start_typing', 'user_id');
+					
+					clearTimeout(timeout);
+					timeout = setTimeout(function () {
+						socket.emit('stop_typing', 'user_id');
+					}, 500);
+				
           return false;
         });
 				
         $('form').focusout(function(msg){
-          socket.emit('stop_typing', 'User id');
+          socket.emit('stop_typing', 'user_id');
           return false;
         });
 				
