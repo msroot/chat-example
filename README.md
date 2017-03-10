@@ -1,6 +1,8 @@
 # chat-example with user typing event
 
 
+![typing](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
+
 - ```git clone https://github.com/msroot/chat-example```
 - ```cd chat-example```
 - ```npm install```
