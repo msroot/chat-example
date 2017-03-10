@@ -19,20 +19,50 @@
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
+		
+		<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" height="200" width="200" id="typing">
+		
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function () {
+				
+				$("#typing").hide()
+				
         var socket = io();
+				
         $('form').submit(function(){
           socket.emit('chat message', $('#m').val());
           $('#m').val('');
           return false;
         });
+				
+        $('form').on('keyup', function(){
+          socket.emit('start_typing', 'User id');
+          return false;
+        });
+				
+        $('form').focusout(function(msg){
+          socket.emit('stop_typing', 'User id');
+          return false;
+        });
+				
+				
         socket.on('chat message', function(msg){
           $('#messages').append($('<li>').text(msg));
           window.scrollTo(0, document.body.scrollHeight);
         });
+				
+        socket.on('start_typing', function(msg){
+					$("#typing").show()
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+				
+        socket.on('stop_typing', function(msg){
+					$("#typing").hide()
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+				
       });
     </script>
   </body>
